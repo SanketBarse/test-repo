@@ -1,0 +1,73 @@
+Dim xlApp, xlBook, xlSheet, data, actualError, claimStatus
+
+Function checkErrors()
+        For i = LBound(actualError) To UBound(actualError)
+            For j = LBound(data, 1) To UBound(data, 1)
+                If actualError(i) = data(j, 1) Then
+                    resolveError(actualError(i))
+                End If
+            Next
+        Next
+End Function
+
+
+Function loadData()
+
+    Set xlApp = CreateObject("Excel.Application")
+    Set xlBook = xlApp.Workbooks.Open("F:\UFT\data.xlsx")
+    Set xlSheet = xlBook.Sheets(1)
+    loadData = xlSheet.Range("A1:A5").Value
+
+    xlBook.Close
+    Set xlApp = Nothing
+    Set xlBook = Nothing
+    Set xlSheet = Nothing
+ 
+End Function
+
+Function searchData()
+    arr = Array("error1", "error2", "error10")
+    searchData = arr
+End Function
+
+
+Function  resolveError(actualError)
+    MsgBox actualError
+End Function
+
+
+Function dataBaseValidation()
+    MsgBox "data base validation completed"
+End Function
+
+Function testFunction()
+    if checkStatus <> "Adjudicated" Then
+        data = loadData()
+        actualError = searchData2()
+        checkErrors()
+    End If
+    dataBaseValidation()
+End Function
+
+Function checkStatus()
+    checkStatus = "Adjudicatedd"
+End Function
+
+
+Function searchData2()
+    Randomize
+    Dim numbers(5)
+    For i = LBound(numbers) To UBound(numbers)
+        numbers(i) = Int((2 * Rnd)+1)
+    Next
+    
+    For Each i in numbers
+        WScript.Echo i
+    Next
+
+    searchData2 = numbers
+End Function
+
+testFunction()
+
+'searchData2()
